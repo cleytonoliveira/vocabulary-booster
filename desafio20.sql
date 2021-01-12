@@ -1,0 +1,19 @@
+USE hr;
+DELIMITER $$
+
+CREATE PROCEDURE exibir_historico_completo_por_funcionario(email VARCHAR(100))
+BEGIN
+SELECT
+CONCAT(E.FIRST_NAME, ' ', E.LAST_NAME) AS `Nome completo`,
+D.DEPARTMENT_NAME AS Departamento,
+J.JOB_TITLE AS Cargo
+FROM hr.job_history AS JH
+INNER JOIN hr.departments AS D ON JH.DEPARTMENT_ID = D.DEPARTMENT_ID
+INNER JOIN hr.jobs AS J ON J.JOB_ID = JH.JOB_ID
+INNER JOIN hr.employees AS E ON E.EMPLOYEE_ID = JH.EMPLOYEE_ID
+WHERE 'NKOCHHAR' = E.EMAIL
+ORDER BY Departamento, Cargo ASC;
+
+END $$
+
+DELIMITER ;
